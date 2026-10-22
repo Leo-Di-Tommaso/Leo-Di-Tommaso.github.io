@@ -190,9 +190,9 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
           <li>Fit robust linear models of ΔP against aerosol optical depth, albedo and the Ångström exponent, using VIF checks for multicollinearity and AICc for model selection.</li>
         </ul>
         <div class="figs">
-          <figure><div class="frame"><img src="img/msat-viirs-maps.png" alt="Four maps over Hefei, China: delta pressure and albedo from MethaneSAT, aerosol optical depth and Angstrom exponent from VIIRS" loading="lazy"></div>
+          <figure><div class="frame"><img src="msat-viirs-maps.png" alt="Four maps over Hefei, China: delta pressure and albedo from MethaneSAT, aerosol optical depth and Angstrom exponent from VIIRS" loading="lazy"></div>
             <figcaption>The regression variables mapped over Hefei, China (20 March 2025).</figcaption></figure>
-          <figure><div class="frame"><img src="img/msat-xco2-vs-dp.png" alt="Density plot of XCO2 against delta pressure with a robust regression line showing a negative relationship" loading="lazy"></div>
+          <figure><div class="frame"><img src="msat-xco2-vs-dp.png" alt="Density plot of XCO2 against delta pressure with a robust regression line showing a negative relationship" loading="lazy"></div>
             <figcaption>Retrieved XCO₂ (with the O₂ proxy) against ΔP. The CO₂ value still depends on ΔP, so the proxy does not fully remove the bias.</figcaption></figure>
         </div>
         <div class="lesson"><span class="label">Finding</span>ΔP was strongly influenced by albedo, aerosols and the Ångström exponent, which undermines the O₂ proxy correction. A model using MethaneSAT's own albedo fit better across scenes than one using VIIRS data alone, likely because the two satellites pass over about 90 minutes apart. After months on this approach I concluded that a regression could not separate aerosol effects from albedo effects without knowing the true CO₂ over each scene. That pointed me toward physics-based modeling.</div>
@@ -222,12 +222,12 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
           <div><p class="label">Run time</p><p class="v">Seconds</p><p class="s">vs. hours for the solver on a full scene</p></div>
         </div>
         <div class="figs">
-          <figure class="dark"><div class="frame"><img src="img/rt-parity.png" alt="Parity plots of emulator predictions against solver output for the random forest and the MLP, both tightly on the 1:1 line" loading="lazy"></div>
+          <figure class="dark"><div class="frame"><img src="rt-parity.png" alt="Parity plots of emulator predictions against solver output for the random forest and the MLP, both tightly on the 1:1 line" loading="lazy"></div>
             <figcaption>Emulator against solver on the held-out test set. Both models sit on the 1:1 line.</figcaption></figure>
-          <figure class="dark"><div class="frame"><img src="img/rt-absorption-line.png" alt="Emergent molecular absorption line profiles in weak, scattering-dominated and saturated regimes" loading="lazy"></div>
+          <figure class="dark"><div class="frame"><img src="rt-absorption-line.png" alt="Emergent molecular absorption line profiles in weak, scattering-dominated and saturated regimes" loading="lazy"></div>
             <figcaption>Absorption line shapes in three regimes. The scattering-dominated regime only exists in a multiple-scattering atmosphere.</figcaption></figure>
         </div>
-        <figure><div class="frame"><img src="img/rt-pressure-bias.png" alt="Three heat maps of surface pressure bias as a function of aerosol optical depth and surface albedo" loading="lazy"></div>
+        <figure><div class="frame"><img src="rt-pressure-bias.png" alt="Three heat maps of surface pressure bias as a function of aerosol optical depth and surface albedo" loading="lazy"></div>
           <figcaption>Surface-pressure bias across aerosol optical depth and albedo. Bright surfaces with heavy aerosol load lengthen the light path and overestimate pressure; dark surfaces underestimate it.</figcaption></figure>
         <details>
           <summary>Technical details</summary>
@@ -295,9 +295,9 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
         <div class="tags"><span>Maple</span><span>calibration</span><span>least squares</span><span>instrument testing</span></div>
       </div>
       <div class="figs">
-        <figure><div class="frame"><img src="img/uv-before.png" alt="UV Index over a day: dosimeter before calibration (green) overshooting the radiometer (red) at midday" loading="lazy"></div>
+        <figure><div class="frame"><img src="uv-before.png" alt="UV Index over a day: dosimeter before calibration (green) overshooting the radiometer (red) at midday" loading="lazy"></div>
           <figcaption>Before: factory calibration (green) vs. reference.</figcaption></figure>
-        <figure><div class="frame"><img src="img/uv-after.png" alt="UV Index over a day: recalibrated dosimeter readings overlapping the radiometer curve" loading="lazy"></div>
+        <figure><div class="frame"><img src="uv-after.png" alt="UV Index over a day: recalibrated dosimeter readings overlapping the radiometer curve" loading="lazy"></div>
           <figcaption>After recalibration.</figcaption></figure>
       </div>
     </article>
