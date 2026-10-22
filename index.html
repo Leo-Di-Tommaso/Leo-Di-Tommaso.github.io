@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leonardo Di Tommaso</title>
+<meta name="description" content="Leonardo Di Tommaso: physics student at Harvard working on satellite remote sensing, radiative transfer, and machine-learning bias correction for greenhouse gas retrievals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (~68ch) with a wide figure track; the research thread is a dated sequence along a vertical spectrum rail. */
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --fg:#14202e; --muted:#566779; --line:#d7dee6;
+  --accent:#c9561a; --accent-soft:#f6e4d8; --sky:#2f6f9e;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body:"Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --col:68ch; --wide:1080px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d141c; --surface:#141e29; --fg:#e4ebf2; --muted:#93a4b6; --line:#25323f;
+  --accent:#f08a4b; --accent-soft:#3a2418; --sky:#7fb6dd; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d141c; --surface:#141e29; --fg:#e4ebf2; --muted:#93a4b6; --line:#25323f;
+  --accent:#f08a4b; --accent-soft:#3a2418; --sky:#7fb6dd; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.65 var(--body);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--sky);text-underline-offset:3px}
+a:hover{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,3.2vw,2.3rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.45rem;font-weight:700}
+p{margin:0}
+.wrap{max-width:var(--wide);margin:0 auto}
+.label{font:500 .74rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* nav */
+nav{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;padding-block:22px;border-bottom:1px solid var(--line)}
+nav .name{font:700 1.05rem var(--display);color:var(--fg);text-decoration:none}
+nav ul{display:flex;flex-wrap:wrap;gap:4px 20px;list-style:none;margin:0;padding:0;font-size:.92rem}
+nav ul a{color:var(--muted);text-decoration:none}
+nav ul a:hover{color:var(--accent)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:end;padding-block:64px 40px}
+.hero h1{font-size:clamp(2.3rem,5.4vw,3.9rem);font-weight:700;letter-spacing:-.02em}
+.hero .lede{margin-top:20px;max-width:56ch;font-size:1.1rem;color:var(--muted)}
+.hero .lede strong{color:var(--fg);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid var(--line);border-radius:999px;color:var(--fg);text-decoration:none;font-size:.92rem;background:var(--surface)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.result{border-left:3px solid var(--accent);padding:4px 0 4px 20px}
+.result .big{font:700 clamp(2rem,4vw,2.8rem)/1.1 var(--display);margin-top:8px;font-variant-numeric:tabular-nums}
+.result .big .arrow{color:var(--accent);padding-inline:.15em}
+.result .big small{font-size:.5em;font-weight:500;color:var(--muted)}
+.result p{margin-top:10px;color:var(--muted);font-size:.93rem;max-width:40ch}
+#spectrum{display:block;width:100%;height:84px;margin-top:8px}
+
+/* sections */
+section{padding-block:56px;border-top:1px solid var(--line)}
+.intro{max-width:var(--col);margin-top:14px;color:var(--muted)}
+
+/* research thread */
+.thread{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:56px}
+.stage{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px}
+.stage .when{position:relative;padding-top:4px}
+.stage .when .n{font:700 2.4rem/1 var(--display);color:var(--accent)}
+.stage .when .date{margin-top:8px}
+.stage .body{min-width:0;display:grid;gap:16px}
+.stage .body > p,.stage .body > ul{max-width:var(--col)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9rem;color:var(--muted)}
+.meta b{color:var(--fg);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font:400 .76rem/1 var(--mono);padding:6px 9px;border-radius:4px;background:var(--accent-soft);color:var(--fg)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;max-width:var(--col)}
+.kv div{background:var(--surface);padding:14px 16px}
+.kv .v{font:700 1.35rem/1.2 var(--display);font-variant-numeric:tabular-nums;margin-top:4px}
+.kv .s{font-size:.82rem;color:var(--muted);margin-top:2px}
+ul.points{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.lesson{max-width:var(--col);padding:14px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px;font-size:.95rem}
+.lesson .label{display:block;margin-bottom:4px;color:var(--accent)}
+.note{font-size:.88rem;color:var(--muted);max-width:var(--col);font-style:italic}
+
+figure{margin:0;min-width:0}
+figure .frame{background:#ffffff;border:1px solid var(--line);border-radius:6px;padding:10px;overflow:hidden}
+figure.dark .frame{background:#0e1117}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-size:.84rem;color:var(--muted);margin-top:8px;max-width:var(--col)}
+.figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+.figs.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+details{max-width:var(--col);border-top:1px dashed var(--line);padding-top:12px}
+summary{cursor:pointer;font:500 .8rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sky)}
+details[open] summary{margin-bottom:10px}
+details p + p, details ul{margin-top:10px}
+
+.confidential{border:1px dashed var(--accent);border-radius:6px;padding:16px 18px;max-width:var(--col);background:var(--surface)}
+.confidential .label{color:var(--accent)}
+.confidential p{margin-top:6px;font-size:.95rem}
+blockquote{margin:0;max-width:var(--col);padding-left:18px;border-left:2px solid var(--line);color:var(--fg);font-size:.97rem}
+
+/* other projects */
+.projects{display:grid;gap:56px;margin-top:36px}
+.project{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px;align-items:start}
+.project .body{display:grid;gap:14px;min-width:0}
+.flow{display:grid;gap:10px;font-family:var(--mono);font-size:.85rem}
+.flow .step{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.flow .step b{display:block;font-family:var(--body);font-size:.95rem;margin-bottom:2px}
+.flow .step.mine{border-color:var(--accent)}
+.flow .arrow{color:var(--accent);text-align:center;line-height:1}
+.flow .key{font-family:var(--body);font-size:.8rem;color:var(--muted)}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;margin-top:28px}
+.about p + p{margin-top:14px}
+.skills{display:grid;gap:16px;font-size:.93rem}
+.skills .label{display:block;margin-bottom:4px}
+footer{border-top:1px solid var(--line);padding-block:40px 56px;display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;align-items:baseline}
+footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(--fg)}
+.copy{font:500 .75rem var(--mono);padding:5px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--muted);cursor:pointer;margin-left:8px}
+.copy:hover{color:var(--accent);border-color:var(--accent)}
+
+@media (max-width:820px){
+  .hero,.project,.about{grid-template-columns:minmax(0,1fr)}
+  .hero{padding-block:40px 28px;gap:28px}
+  .stage{grid-template-columns:minmax(0,1fr);gap:10px}
+  .stage .when{display:flex;align-items:baseline;gap:14px}
+  .stage .when .date{margin-top:0}
+  .figs,.figs.three{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<nav aria-label="Main">
+  <a class="name" href="#top">Leonardo Di Tommaso</a>
+  <ul>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Other projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div>
+    <p class="label">Physics · Harvard College · Class of 2028</p>
+    <h1>I build data pipelines and models that make satellite CO₂ measurements more accurate.</h1>
+    <p class="lede">I work on <strong>satellite remote sensing</strong>, <strong>radiative transfer</strong> and <strong>machine-learning bias correction</strong> for greenhouse gas retrievals, with research at Harvard and Caltech.</p>
+    <div class="links">
+      <a class="btn primary" href="#research">See the research</a>
+      <a class="btn" href="https://github.com/Leo-Di-Tommaso" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+    </div>
+  </div>
+  <aside class="result" aria-label="Headline result">
+    <p class="label">Caltech, summer 2026 · simulated MethaneSAT scenes</p>
+    <p class="big">9.89<span class="arrow">→</span>0.34 <small>ppm</small></p>
+    <p>Median aerosol-induced CO₂ bias before and after correction, on 88 test scenes. The target is regional variations of 1–3 ppm on a ~430 ppm background.</p>
+    <canvas id="spectrum" aria-hidden="true"></canvas>
+  </aside>
+</header>
+
+<section id="research">
+  <p class="label">Research thread · 2025 – present</p>
+  <h2>Correcting aerosol bias in satellite CO₂ retrievals</h2>
+  <p class="intro">MethaneSAT measures methane at high resolution, and its CO₂ product is currently used only as a proxy for the methane retrieval. My research asks whether we can remove the bias that aerosol scattering introduces into those CO₂ retrievals, so that MethaneSAT could also quantify regional CO₂ fluxes. Each stage below grew out of what the previous one could not solve.</p>
+
+  <ol class="thread">
+    <!-- 1 -->
+    <li class="stage">
+      <div class="when"><span class="n">1</span><p class="label date">Summer – Fall 2025<br>Harvard</p></div>
+      <div class="body">
+        <h3>Statistical correction with MethaneSAT and VIIRS</h3>
+        <div class="meta"><span><b>Role</b> Sole developer</span><span><b>Advisor</b> Prof. Steven C. Wofsy</span><span><b>Funding</b> Harvard PRISE fellowship</span></div>
+        <p>MethaneSAT infers surface pressure from the oxygen absorption band at 1286 nm. Because O₂ is evenly mixed in the atmosphere, any gap between the retrieved pressure and the expected pressure (ΔP) should come from light-path errors such as aerosol scattering. I tested whether ΔP, combined with independent aerosol data from the VIIRS satellite, could be used in a regression that corrects the CO₂ retrieval.</p>
+        <ul class="points">
+          <li>Built automated R and Python pipelines to download, extract and align NetCDF data from two satellites with different resolutions, using the VIIRS 6 km Deep Blue aerosol product.</li>
+          <li>Matched observations in space and time (±90 minutes) across 100+ scenes.</li>
+          <li>Fit robust linear models of ΔP against aerosol optical depth, albedo and the Ångström exponent, using VIF checks for multicollinearity and AICc for model selection.</li>
+        </ul>
+        <div class="figs">
+          <figure><div class="frame"><img src="img/msat-viirs-maps.png" alt="Four maps over Hefei, China: delta pressure and albedo from MethaneSAT, aerosol optical depth and Angstrom exponent from VIIRS" loading="lazy"></div>
+            <figcaption>The regression variables mapped over Hefei, China (20 March 2025).</figcaption></figure>
+          <figure><div class="frame"><img src="img/msat-xco2-vs-dp.png" alt="Density plot of XCO2 against delta pressure with a robust regression line showing a negative relationship" loading="lazy"></div>
+            <figcaption>Retrieved XCO₂ (with the O₂ proxy) against ΔP. The CO₂ value still depends on ΔP, so the proxy does not fully remove the bias.</figcaption></figure>
+        </div>
+        <div class="lesson"><span class="label">Finding</span>ΔP was strongly influenced by albedo, aerosols and the Ångström exponent, which undermines the O₂ proxy correction. A model using MethaneSAT's own albedo fit better across scenes than one using VIIRS data alone, likely because the two satellites pass over about 90 minutes apart. After months on this approach I concluded that a regression could not separate aerosol effects from albedo effects without knowing the true CO₂ over each scene. That pointed me toward physics-based modeling.</div>
+        <div class="links">
+          <a class="btn" href="https://github.com/Leo-Di-Tommaso/Aerosol-Bias-Correction" target="_blank" rel="noopener">Code on GitHub</a>
+          <a class="btn" href="poster.pdf" target="_blank" rel="noopener">Research poster (PDF)</a>
+        </div>
+        <div class="tags"><span>R</span><span>Python</span><span>terra / raster</span><span>NetCDF</span><span>robust regression</span><span>spatial analysis</span></div>
+      </div>
+    </li>
+
+    <!-- 2 -->
+    <li class="stage">
+      <div class="when"><span class="n">2</span><p class="label date">Spring 2026<br>Harvard</p></div>
+      <div class="body">
+        <h3>A radiative transfer model and a fast ML emulator</h3>
+        <div class="meta"><span><b>Context</b> Graduate course project (EPS 200) feeding into my research</span><span><b>Guidance</b> Prof. Steven C. Wofsy, Eleanor Walker</span></div>
+        <p>To understand the physics the regression missed, I took a basic two-stream radiative transfer toy model from my advisor and extended it into a tool for studying how aerosols, surface brightness and gas absorption interact. The goal was to see how errors in assumed aerosol or albedo turn into errors in retrieved surface pressure, and to make the model fast enough to run on millions of satellite pixels.</p>
+        <ul class="points">
+          <li>Extended the two-stream Eddington solver with Lambertian surface reflection and swept a 3D grid of aerosol optical depth (0.05–3.0), albedo (0.02–0.9) and absorption.</li>
+          <li>Generated 50,000 training points with Latin Hypercube Sampling and trained a random forest and a 3-layer MLP to emulate the solver.</li>
+          <li>Modeled how an absorption line forms in a scattering atmosphere (following McElroy, 1971) and built an inverse model of the resulting surface-pressure bias in the O₂ A-band.</li>
+        </ul>
+        <div class="kv">
+          <div><p class="label">MLP emulator</p><p class="v">R² 0.9998</p><p class="s mono">MAE 0.00019</p></div>
+          <div><p class="label">Random forest</p><p class="v">R² 0.9930</p><p class="s mono">MAE 0.00111</p></div>
+          <div><p class="label">Run time</p><p class="v">Seconds</p><p class="s">vs. hours for the solver on a full scene</p></div>
+        </div>
+        <div class="figs">
+          <figure class="dark"><div class="frame"><img src="img/rt-parity.png" alt="Parity plots of emulator predictions against solver output for the random forest and the MLP, both tightly on the 1:1 line" loading="lazy"></div>
+            <figcaption>Emulator against solver on the held-out test set. Both models sit on the 1:1 line.</figcaption></figure>
+          <figure class="dark"><div class="frame"><img src="img/rt-absorption-line.png" alt="Emergent molecular absorption line profiles in weak, scattering-dominated and saturated regimes" loading="lazy"></div>
+            <figcaption>Absorption line shapes in three regimes. The scattering-dominated regime only exists in a multiple-scattering atmosphere.</figcaption></figure>
+        </div>
+        <figure><div class="frame"><img src="img/rt-pressure-bias.png" alt="Three heat maps of surface pressure bias as a function of aerosol optical depth and surface albedo" loading="lazy"></div>
+          <figcaption>Surface-pressure bias across aerosol optical depth and albedo. Bright surfaces with heavy aerosol load lengthen the light path and overestimate pressure; dark surfaces underestimate it.</figcaption></figure>
+        <details>
+          <summary>Technical details</summary>
+          <p>The solver computes upward and downward diffuse intensities as a function of optical depth, with Beer–Lambert attenuation of the direct beam, no downwelling at the top of the atmosphere and Lambertian reflection at the surface. Inputs are aerosol optical depth, single-scattering albedo, solar and viewing angles, and surface albedo.</p>
+          <p>For the emulators I replaced raw AOD with log₁₀(AOD) to handle its wide range, used an 80/20 train/test split, trained the MLP with a ReduceLROnPlateau schedule and clipped predictions at zero because radiance cannot be negative. In the random forest, log₁₀(AOD) and single-scattering albedo were the most important features, followed by albedo and then viewing geometry.</p>
+          <p>Next steps were to apply the emulator to real radiance data and to add a realistic asymmetry parameter (the model assumes isotropic scattering).</p>
+        </details>
+        <p class="note">The physics model, experiments and analysis are my own. I wrote the ML emulator code with help from an AI assistant (Claude).</p>
+        <div class="links"><a class="btn" href="https://docs.google.com/presentation/d/1tdBxZEOCpj5JfKfa6E_nutEKEnmKeYFtNROmr0540Jo/edit?usp=sharing" target="_blank" rel="noopener">Slides</a></div>
+        <div class="tags"><span>Python</span><span>scikit-learn</span><span>neural networks</span><span>radiative transfer</span><span>Latin Hypercube Sampling</span></div>
+      </div>
+    </li>
+
+    <!-- 3 -->
+    <li class="stage">
+      <div class="when"><span class="n">3</span><p class="label date">Summer 2026 – present<br>Caltech</p></div>
+      <div class="body">
+        <h3>Using surface variation to correct light-path errors</h3>
+        <div class="meta"><span><b>Advisors</b> Prof. Christian Frankenberg, Prof. Steven C. Wofsy</span></div>
+        <p>With a full radiative transfer model (vSmartMOM), I simulated satellite CO₂ retrievals under different aerosols, surfaces and viewing geometries, and developed a correction that works under noise levels similar to MethaneSAT's.</p>
+        <div class="kv">
+          <div><p class="label">Median CO₂ bias</p><p class="v">9.89 → 0.34 ppm</p><p class="s">0.079%, within the 0.25% target</p></div>
+          <div><p class="label">RMSE</p><p class="v">1.25 ppm</p><p class="s">0.29%, just above the target</p></div>
+          <div><p class="label">Test set</p><p class="v">88 scenes</p><p class="s">simulated, MethaneSAT-like noise</p></div>
+        </div>
+        <details open>
+          <summary>Abstract</summary>
+          <blockquote>Accurate retrievals of greenhouse gas (GHG) emissions are essential to meaningfully informing policymakers on regional policies. However, the community has struggled to obtain retrievals of carbon dioxide (CO₂) with uncertainties below the real regional variations of gas concentration in the atmosphere at fine spatial scales. These variations are of only 1–3 ppm on a background of roughly 430 ppm, so the required accuracy is below 0.25%. The main source of uncertainty in CO₂ retrievals comes from aerosol scattering. Different aerosol types carry different scattering behaviors coherently with Mie scattering theory, which makes it difficult to correct their impact on greenhouse gas retrievals. To solve the problem, we explored the dependency of these biases on various aerosol parameters, surface reflectance and geometry by simulating satellite retrievals using the radiative transfer model vSmartMOM. We devised a pipeline that is able to estimate the impact of aerosols on the signal in simulated noise conditions similar to those of MethaneSAT, a high resolution GHG sensing satellite, by using the fact that atmospheric parameters can be considered roughly uniform over small areas, whereas the surface reflectance underneath is sharply varying. On 88 simulated test scenes, the best correction reduces the aerosol-induced CO₂ bias from a median of 9.89 ppm to 0.34 ppm (0.079%), within the 0.25% requirement, although its root mean squared error of 1.25 ppm (0.29%) remains just above it. These studies provide a basis for current and future high resolution GHG remote sensing missions to successfully quantify and correct aerosol-scattering-induced bias, thus retrieving more accurate estimates of GHG concentrations.</blockquote>
+        </details>
+        <div class="confidential"><p class="label">Unpublished work</p><p>The methods are not public yet. I'm happy to walk through the approach in an interview.</p></div>
+        <div class="tags"><span>vSmartMOM</span><span>radiative transfer</span><span>retrieval algorithms</span><span>machine learning</span></div>
+      </div>
+    </li>
+
+    <!-- 4 -->
+    <li class="stage">
+      <div class="when"><span class="n">4</span><p class="label date">Next</p></div>
+      <div class="body">
+        <h3>From simulation to real observations</h3>
+        <p>I'm now extending the method to real MethaneSAT observations, with the goal of an operational bias correction for high-resolution regional CO₂ flux estimates.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section id="projects">
+  <p class="label">Other projects</p>
+  <h2>Where I started</h2>
+  <div class="projects">
+
+    <article class="project">
+      <div class="body">
+        <p class="label">Jul – Nov 2023 · ARPA Valle d'Aosta, Italy · Published</p>
+        <h3>Testing a new wearable UV dosimeter</h3>
+        <div class="meta"><span><b>Role</b> High school research intern</span><span><b>Supervisors</b> Henri Diémoz (ARPA), Prof. Anna Maria Siani (Sapienza)</span></div>
+        <p>The regional environmental protection agency had a new electronic UV dosimeter designed by Martin Allen at the University of Canterbury, New Zealand. It had never been tested in Italy. I compared three dosimeters against the agency's reference radiometer, recalibrated them, and then used them to measure real people's sun exposure.</p>
+        <p>I did most of the coding (in Maple) and designed the statistical tests. My supervisor provided the instruments and checked the rigor of the work.</p>
+        <ul class="points">
+          <li>The factory calibration overestimated the UV Index by about 10% around midday.</li>
+          <li>I compared a two-factor calibration with a single-factor one. The single-factor fit avoided non-physical UV readings at night, and the recalibrated dosimeters agreed with the reference within 10%.</li>
+          <li>A stability test three weeks later found calibration drift of −15.8% and −42.6% in two dosimeters, which became a key finding for the manufacturer.</li>
+          <li>In field tests, a hiker's dose of 242 J/m² came close to the erythema threshold for their skin type (250 J/m²), matching the mild sunburn they reported.</li>
+        </ul>
+        <div class="links"><a class="btn" href="https://doi.org/10.5281/zenodo.10071501" target="_blank" rel="noopener">Read the report · DOI 10.5281/zenodo.10071501</a></div>
+        <div class="tags"><span>Maple</span><span>calibration</span><span>least squares</span><span>instrument testing</span></div>
+      </div>
+      <div class="figs">
+        <figure><div class="frame"><img src="img/uv-before.png" alt="UV Index over a day: dosimeter before calibration (green) overshooting the radiometer (red) at midday" loading="lazy"></div>
+          <figcaption>Before: factory calibration (green) vs. reference.</figcaption></figure>
+        <figure><div class="frame"><img src="img/uv-after.png" alt="UV Index over a day: recalibrated dosimeter readings overlapping the radiometer curve" loading="lazy"></div>
+          <figcaption>After recalibration.</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="body">
+        <p class="label">Spring 2025 · Harvard CS 32 · Team of 3</p>
+        <h3>Cardona-gram, a word game</h3>
+        <div class="meta"><span><b>Team</b> Ana Isabel Cardona, Leonardo Di Tommaso, Tim Langenbahn</span></div>
+        <p>A Python anagram game: the player gets a random set of letters and has to find every English word hidden in it. It has a classic mode, a survival mode with three lives, and a 60-second timed mode. This was one of my first coding projects, written without generative AI.</p>
+        <p>I built the word engine: generating every permutation of three or more letters and checking which ones are real words. We tried an online dictionary API, an offline spell-check library and a CSV of about 4,000 common words. We chose the CSV because it was faster, needed no extra dependencies and produced words players actually know, at the cost of missing rarer words.</p>
+        <div class="links"><a class="btn" href="https://github.com/Leo-Di-Tommaso/cardona-gram" target="_blank" rel="noopener">Code on GitHub</a></div>
+        <div class="tags"><span>Python</span><span>permutations</span><span>team project</span></div>
+      </div>
+      <div class="flow" aria-label="How the game builds a round">
+        <div class="step"><b>Random letter set</b>e.g. R · A · T · S · E</div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div class="step mine"><b>All 3+ letter permutations</b>wordlist.py</div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div class="step mine"><b>Keep only real words</b>word_search.py · ~4,000-word list</div>
+        <div class="arrow" aria-hidden="true">↓</div>
+        <div class="step"><b>Round starts</b>Regenerate the set if no words are found</div>
+        <p class="key">Outlined steps are the parts I wrote.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="about">
+  <p class="label">About</p>
+  <h2>Physics student from the Italian Alps</h2>
+  <div class="about">
+    <div>
+      <p>I'm a physics student at Harvard (AB expected 2028), originally from Aosta, Italy. I got into atmospheric science through a high school internship at my regional environmental agency, and I've worked on how to measure greenhouse gases from space ever since.</p>
+      <p>What I enjoy most is the full loop: getting messy real-world data into shape, building a model, finding out where it breaks, and figuring out why. Before college I was regional president of student representatives in Valle d'Aosta and a G7 Young for Education delegate.</p>
+    </div>
+    <div class="skills">
+      <div><span class="label">Languages & tools</span>Python, Julia, R (terra, raster, ncdf4, tidyverse, ggplot2), Git, LaTeX, Maple</div>
+      <div><span class="label">Data science & ML</span>Regression modeling, random forests, neural networks, spatial data analysis, model selection (AICc, VIF), time series, automated pipelines</div>
+      <div><span class="label">Domain</span>Satellite remote sensing, radiative transfer, greenhouse gas retrievals, instrument calibration</div>
+      <div><span class="label">Spoken</span>English (fluent), Italian (native), French (proficient)</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div>
+    <p class="label">Contact</p>
+    <p style="margin-top:6px"><span class="addr" id="email">lditommaso@college.harvard.edu</span><button class="copy" id="copy-email" type="button">Copy</button></p>
+  </div>
+  <div class="links" style="margin-top:0">
+    <a class="btn" href="mailto:lditommaso@college.harvard.edu">Email</a>
+    <a class="btn" href="https://github.com/Leo-Di-Tommaso" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  // Decorative absorption-line motif: a continuum with Lorentzian lines.
+  var c=document.getElementById('spectrum'); if(!c||!c.getContext) return;
+  function draw(){
+    var r=window.devicePixelRatio||1, w=c.clientWidth, h=c.clientHeight;
+    c.width=w*r; c.height=h*r; var g=c.getContext('2d'); g.scale(r,r);
+    var cs=getComputedStyle(document.documentElement);
+    var lines=[.08,.13,.19,.24,.31,.36,.43,.49,.56,.61,.68,.73,.8,.86,.92];
+    function y(x,k){ var t=1; for(var i=0;i<lines.length;i++){var d=(x-lines[i])/0.006; var s=(0.35+0.5*Math.abs(Math.sin(i*1.7)))*k; t-=s/(1+d*d);} return Math.max(t,0.05); }
+    function path(k,color,width){ g.beginPath(); for(var px=0;px<=w;px++){var x=px/w; var v=y(x,k); var py=6+(1-v)*(h-12); if(px===0)g.moveTo(px,py); else g.lineTo(px,py);} g.strokeStyle=color; g.lineWidth=width; g.stroke(); }
+    path(1, cs.getPropertyValue('--line').trim()||'#ccc', 1.5);
+    path(0.62, cs.getPropertyValue('--accent').trim()||'#c9561a', 1.5);
+  }
+  draw(); window.addEventListener('resize',draw);
+  if(window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+
+  var b=document.getElementById('copy-email');
+  b.addEventListener('click',function(){
+    var t=document.getElementById('email').textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r);}
+    try{ navigator.clipboard.writeText(t).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1600)},sel);}catch(e){sel();}
+  });
+})();
+</script>
+</body>
+</html>
