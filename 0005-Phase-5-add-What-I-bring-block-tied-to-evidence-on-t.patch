@@ -1,0 +1,46 @@
+From 4997592ad7f9df32d1e78a2c70f0c0a635a07c34 Mon Sep 17 00:00:00 2001
+From: Leonardo Di Tommaso <lditommaso@college.harvard.edu>
+Date: Thu, 22 Oct 2026 22:51:19 +0000
+Subject: [PATCH 5/7] Phase 5: add 'What I bring' block tied to evidence on the
+ page
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CryqtVWHxQqeBH2U2kwpqj
+---
+ index.html | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/index.html b/index.html
+index 996daa0..d457793 100644
+--- a/index.html
++++ b/index.html
+@@ -160,6 +160,12 @@ details .points{margin-top:10px}
+ .note-plain{font-size:.88rem;color:var(--muted);max-width:var(--col)}
+ .project.compact{grid-template-columns:minmax(0,1fr);max-width:var(--col)}
+ code{font-family:var(--mono);font-size:.88em}
++.bring-title{margin-top:32px}
++.bring{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 32px;font-size:.93rem;line-height:1.55}
++.bring li{padding-left:16px;border-left:2px solid var(--line);min-width:0}
++.bring b{display:block;font-weight:600}
++.bring a{font:500 .78rem var(--mono);white-space:nowrap}
++@media (max-width:820px){.bring{grid-template-columns:minmax(0,1fr)}}
+ </style>
+ </head>
+ <body>
+@@ -216,6 +222,13 @@ code{font-family:var(--mono);font-size:.88em}
+       <span class="card-link">DOI 10.5281/zenodo.10071501 →</span>
+     </a>
+   </div>
++  <h2 class="label bring-title">What I bring</h2>
++  <ul class="bring">
++    <li><b>Pipelines that join messy data from several sources.</b> I matched two satellites with different resolutions and overpass times across 100+ scenes. <a href="#stage-1">Stage 1</a></li>
++    <li><b>Fast, validated stand-ins for slow models.</b> I replaced a physics solver with ML emulators checked against held-out data, fast enough for millions of pixels. <a href="#stage-2">Stage 2</a></li>
++    <li><b>Honest evaluation.</b> I document where a method fails and what is still above target, like the regression that could not separate aerosol from albedo and the RMSE that misses the target. <a href="#stage-1">Stage 1</a>, <a href="#stage-3">Stage 3</a></li>
++    <li><b>Explaining technical work plainly.</b> I've presented research as a poster and slides, and each project here starts with a plain-language summary. <a href="poster.pdf" target="_blank" rel="noopener">Poster</a></li>
++  </ul>
+ </section>
+ 
+ <section id="research">
+-- 
+2.43.0
+

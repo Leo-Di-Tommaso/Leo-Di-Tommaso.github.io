@@ -1,0 +1,97 @@
+From 52a3da82ea183cf566701dafdfc67d873e4bffb5 Mon Sep 17 00:00:00 2001
+From: Leonardo Di Tommaso <lditommaso@college.harvard.edu>
+Date: Thu, 22 Oct 2026 22:51:08 +0000
+Subject: [PATCH 4/7] Phase 4: compact Cardona-gram card, tightened UV
+ dosimeter summary, shorter About clause
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CryqtVWHxQqeBH2U2kwpqj
+---
+ index.html | 44 +++++++++++++++++++++-----------------------
+ 1 file changed, 21 insertions(+), 23 deletions(-)
+
+diff --git a/index.html b/index.html
+index c94adda..996daa0 100644
+--- a/index.html
++++ b/index.html
+@@ -158,6 +158,8 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+ .takeaway .label{display:block;margin-bottom:2px;color:var(--accent)}
+ details .points{margin-top:10px}
+ .note-plain{font-size:.88rem;color:var(--muted);max-width:var(--col)}
++.project.compact{grid-template-columns:minmax(0,1fr);max-width:var(--col)}
++code{font-family:var(--mono);font-size:.88em}
+ </style>
+ </head>
+ <body>
+@@ -341,14 +343,18 @@ details .points{margin-top:10px}
+         <p class="label">Jul – Nov 2023 · ARPA Valle d'Aosta, Italy · Published</p>
+         <h3>Testing a new wearable UV dosimeter</h3>
+         <div class="meta"><span><b>Role</b> High school research intern</span><span><b>Supervisors</b> Henri Diémoz (ARPA), Prof. Anna Maria Siani (Sapienza)</span></div>
+-        <p>The regional environmental protection agency had a new electronic UV dosimeter designed by Martin Allen at the University of Canterbury, New Zealand. It had never been tested in Italy. I compared three dosimeters against the agency's reference radiometer, recalibrated them, and then used them to measure real people's sun exposure.</p>
+-        <p>I did most of the coding (in Maple) and designed the statistical tests. My supervisor provided the instruments and checked the rigor of the work.</p>
+-        <ul class="points">
+-          <li>The factory calibration overestimated the UV Index by about 10% around midday.</li>
+-          <li>I compared a two-factor calibration with a single-factor one. The single-factor fit avoided non-physical UV readings at night, and the recalibrated dosimeters agreed with the reference within 10%.</li>
+-          <li>A stability test three weeks later found calibration drift of −15.8% and −42.6% in two dosimeters, which became a key finding for the manufacturer.</li>
+-          <li>In field tests, a hiker's dose of 242 J/m² came close to the erythema threshold for their skin type (250 J/m²), matching the mild sunburn they reported.</li>
+-        </ul>
++        <p class="summary">A new wearable UV sensor had never been tested in Italy. I compared three of them against the regional environmental agency's reference instrument, recalibrated them, and used them to measure people's real sun exposure.</p>
++        <p class="takeaway"><span class="label">Key findings</span>The factory calibration read about 10% high at midday; after recalibration the sensors agreed with the reference within 10%, but two drifted by −15.8% and −42.6% within three weeks.</p>
++        <details>
++          <summary>Details</summary>
++          <p>The dosimeter was designed by Martin Allen at the University of Canterbury, New Zealand. I did most of the coding (in Maple) and designed the statistical tests. My supervisor provided the instruments and checked the rigor of the work.</p>
++          <ul class="points">
++            <li>The factory calibration overestimated the UV Index by about 10% around midday.</li>
++            <li>I compared a two-factor calibration with a single-factor one. The single-factor fit avoided non-physical UV readings at night, and the recalibrated dosimeters agreed with the reference within 10%.</li>
++            <li>A stability test three weeks later found calibration drift of −15.8% and −42.6% in two dosimeters, which became a key finding for the manufacturer.</li>
++            <li>In field tests, a hiker's dose of 242 J/m² came close to the erythema threshold for their skin type (250 J/m²), matching the mild sunburn they reported.</li>
++          </ul>
++        </details>
+         <div class="links"><a class="btn" href="https://doi.org/10.5281/zenodo.10071501" target="_blank" rel="noopener">Read the report · DOI 10.5281/zenodo.10071501</a></div>
+         <div class="tags"><span>Maple</span><span>calibration</span><span>least squares</span><span>instrument testing</span></div>
+       </div>
+@@ -360,26 +366,18 @@ details .points{margin-top:10px}
+       </div>
+     </article>
+ 
+-    <article class="project" id="cardona-gram">
++    <article class="project compact" id="cardona-gram">
+       <div class="body">
+         <p class="label">Spring 2025 · Harvard CS 32 · Team of 3</p>
+         <h3>Cardona-gram, a word game</h3>
+-        <div class="meta"><span><b>Team</b> Ana Isabel Cardona, Leonardo Di Tommaso, Tim Langenbahn</span></div>
+-        <p>A Python anagram game: the player gets a random set of letters and has to find every English word hidden in it. It has a classic mode, a survival mode with three lives, and a 60-second timed mode. My part was the word engine, and it taught me to pick a simple data structure over a clever dependency when speed and reliability matter more.</p>
+-        <p>I built the word engine: generating every permutation of three or more letters and checking which ones are real words. We tried an online dictionary API, an offline spell-check library and a CSV of about 4,000 common words. We chose the CSV because it was faster, needed no extra dependencies and produced words players actually know, at the cost of missing rarer words.</p>
++        <p>A Python anagram game where players find every English word hidden in a random set of letters, with classic, survival and 60-second modes. I built the word engine, which generates every permutation of three or more letters and keeps the real words. We chose a 4,000-word CSV over a dictionary API or spell-check library because it was faster and needed no dependencies, at the cost of missing rarer words.</p>
++        <details>
++          <summary>How a round is built</summary>
++          <p>Team: Ana Isabel Cardona, Leonardo Di Tommaso, Tim Langenbahn. A random letter set (e.g. R · A · T · S · E) goes to <code>wordlist.py</code>, which generates all 3+ letter permutations, then to <code>word_search.py</code>, which keeps only words in the ~4,000-word list. If no words are found, the set is regenerated. I wrote <code>wordlist.py</code> and <code>word_search.py</code>.</p>
++        </details>
+         <div class="links"><a class="btn" href="https://github.com/Leo-Di-Tommaso/cardona-gram" target="_blank" rel="noopener">Code on GitHub</a></div>
+         <div class="tags"><span>Python</span><span>permutations</span><span>team project</span></div>
+       </div>
+-      <div class="flow" aria-label="How the game builds a round">
+-        <div class="step"><b>Random letter set</b>e.g. R · A · T · S · E</div>
+-        <div class="arrow" aria-hidden="true">↓</div>
+-        <div class="step mine"><b>All 3+ letter permutations</b>wordlist.py</div>
+-        <div class="arrow" aria-hidden="true">↓</div>
+-        <div class="step mine"><b>Keep only real words</b>word_search.py · ~4,000-word list</div>
+-        <div class="arrow" aria-hidden="true">↓</div>
+-        <div class="step"><b>Round starts</b>Regenerate the set if no words are found</div>
+-        <p class="key">Outlined steps are the parts I wrote.</p>
+-      </div>
+     </article>
+   </div>
+ </section>
+@@ -390,7 +388,7 @@ details .points{margin-top:10px}
+   <div class="about">
+     <div>
+       <p>I'm a physics student at Harvard (AB expected 2028), originally from Aosta, Italy. I got into atmospheric science through a high school internship at my regional environmental agency, and I've worked on how to measure greenhouse gases from space ever since.</p>
+-      <p>What I enjoy most is the full loop: getting messy real-world data into shape, building a model, finding out where it breaks, and figuring out why. Before college I was regional president of student representatives in Valle d'Aosta and a G7 Young for Education delegate.</p>
++      <p>What I enjoy most is the full loop: getting messy real-world data into shape, building a model, finding out where it breaks, and figuring out why. Before college I also led my region's student representatives and served as a G7 youth education delegate.</p>
+     </div>
+     <div class="skills">
+       <div><span class="label">Languages & tools</span>Python, Julia, R (terra, raster, ncdf4, tidyverse, ggplot2), Git, LaTeX, Maple</div>
+-- 
+2.43.0
+

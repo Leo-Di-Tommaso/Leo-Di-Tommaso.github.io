@@ -1,0 +1,60 @@
+From 356efe891aebdeac6b1ceb668ef777d5ef1b2b5d Mon Sep 17 00:00:00 2001
+From: Leonardo Di Tommaso <lditommaso@college.harvard.edu>
+Date: Thu, 22 Oct 2026 22:50:42 +0000
+Subject: [PATCH 3/7] Phase 3: runtime placeholder, held-out data note,
+ evidence-mapped skills, neutral Cardona-gram line
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CryqtVWHxQqeBH2U2kwpqj
+---
+ index.html | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/index.html b/index.html
+index 03ae81b..c94adda 100644
+--- a/index.html
++++ b/index.html
+@@ -157,6 +157,7 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+ .takeaway{max-width:var(--col);font-size:.95rem;padding:10px 14px;border-left:3px solid var(--accent);background:var(--surface);border-radius:0 6px 6px 0}
+ .takeaway .label{display:block;margin-bottom:2px;color:var(--accent)}
+ details .points{margin-top:10px}
++.note-plain{font-size:.88rem;color:var(--muted);max-width:var(--col)}
+ </style>
+ </head>
+ <body>
+@@ -264,8 +265,9 @@ details .points{margin-top:10px}
+         <div class="kv">
+           <div><p class="label">MLP emulator</p><p class="v">R² 0.9998</p><p class="s mono">MAE 0.00019</p></div>
+           <div><p class="label">Random forest</p><p class="v">R² 0.9930</p><p class="s mono">MAE 0.00111</p></div>
+-          <div><p class="label">Run time</p><p class="v">Seconds</p><p class="s">vs. hours for the solver on a full scene</p></div>
++          <div><p class="label">Run time</p><p class="v">[TODO: emulator runtime per scene]</p><p class="s">vs. [TODO: solver runtime per scene] for the solver</p></div>
+         </div>
++        <p class="note-plain">Scores are measured on held-out test data drawn from the same synthetic distribution as the training set, not on real satellite data.</p>
+         <div class="figs">
+           <figure class="dark"><div class="frame"><img src="rt-parity.png" alt="Parity plots of emulator predictions against solver output for the random forest and the MLP, both tightly on the 1:1 line" loading="lazy"></div>
+             <figcaption>Emulator against solver on the held-out test set. Both models sit on the 1:1 line.</figcaption></figure>
+@@ -363,7 +365,7 @@ details .points{margin-top:10px}
+         <p class="label">Spring 2025 · Harvard CS 32 · Team of 3</p>
+         <h3>Cardona-gram, a word game</h3>
+         <div class="meta"><span><b>Team</b> Ana Isabel Cardona, Leonardo Di Tommaso, Tim Langenbahn</span></div>
+-        <p>A Python anagram game: the player gets a random set of letters and has to find every English word hidden in it. It has a classic mode, a survival mode with three lives, and a 60-second timed mode. This was one of my first coding projects, written without generative AI.</p>
++        <p>A Python anagram game: the player gets a random set of letters and has to find every English word hidden in it. It has a classic mode, a survival mode with three lives, and a 60-second timed mode. My part was the word engine, and it taught me to pick a simple data structure over a clever dependency when speed and reliability matter more.</p>
+         <p>I built the word engine: generating every permutation of three or more letters and checking which ones are real words. We tried an online dictionary API, an offline spell-check library and a CSV of about 4,000 common words. We chose the CSV because it was faster, needed no extra dependencies and produced words players actually know, at the cost of missing rarer words.</p>
+         <div class="links"><a class="btn" href="https://github.com/Leo-Di-Tommaso/cardona-gram" target="_blank" rel="noopener">Code on GitHub</a></div>
+         <div class="tags"><span>Python</span><span>permutations</span><span>team project</span></div>
+@@ -392,8 +394,10 @@ details .points{margin-top:10px}
+     </div>
+     <div class="skills">
+       <div><span class="label">Languages & tools</span>Python, Julia, R (terra, raster, ncdf4, tidyverse, ggplot2), Git, LaTeX, Maple</div>
+-      <div><span class="label">Data science & ML</span>Regression modeling, random forests, neural networks, spatial data analysis, model selection (AICc, VIF), time series, automated pipelines</div>
+-      <div><span class="label">Domain</span>Satellite remote sensing, radiative transfer, greenhouse gas retrievals, instrument calibration</div>
++      <div><span class="label">Data pipelines & spatial data</span>Multi-satellite NetCDF alignment in R and Python: <a href="#stage-1">stage 1</a></div>
++      <div><span class="label">Statistics</span>Robust regression, model selection (AICc, VIF): <a href="#stage-1">stage 1</a>. Least-squares calibration: <a href="#uv-dosimeter">UV dosimeter</a></div>
++      <div><span class="label">Machine learning</span>Random forests, neural networks, emulator validation: <a href="#stage-2">radiative transfer emulator</a></div>
++      <div><span class="label">Physics & domain</span>Radiative transfer, satellite remote sensing, greenhouse gas retrievals: <a href="#stage-2">stages 2</a>–<a href="#stage-3">3</a>. Instrument calibration: <a href="#uv-dosimeter">UV dosimeter</a></div>
+       <div><span class="label">Spoken</span>English (fluent), Italian (native), French (proficient)</div>
+     </div>
+   </div>
+-- 
+2.43.0
+

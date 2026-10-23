@@ -1,0 +1,31 @@
+From a2499edc3c14a72af6522b20dd7d4952ba4ed6eb Mon Sep 17 00:00:00 2001
+From: Leonardo Di Tommaso <lditommaso@college.harvard.edu>
+Date: Thu, 22 Oct 2026 22:56:13 +0000
+Subject: [PATCH 7/7] Phase 6: README reflects flat file layout
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CryqtVWHxQqeBH2U2kwpqj
+---
+ README.md | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/README.md b/README.md
+index 49d03b2..f979d67 100644
+--- a/README.md
++++ b/README.md
+@@ -2,8 +2,8 @@
+ 
+ Static site for GitHub Pages. No build step.
+ 
+-- `index.html` — the site
+-- `img/` — figures
++- `index.html` — the whole site (HTML, CSS and a small script in one file)
++- `*.png`, `*.jpg` — figures, kept at the top level next to `index.html`
+ - `poster.pdf` — PRISE research poster
+-- `resume.pdf` — add your résumé here (without phone numbers)
+-- `src/page.html` — editable source (same content; `index.html` is generated from it)
++- `resume.pdf` — résumé
++- `page.html` — older copy of the source; not used by the site
+-- 
+2.43.0
+
