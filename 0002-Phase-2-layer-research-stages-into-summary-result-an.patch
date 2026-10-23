@@ -1,0 +1,133 @@
+From 1f98605dd961b14688aa979431175f1140dd5060 Mon Sep 17 00:00:00 2001
+From: Leonardo Di Tommaso <lditommaso@college.harvard.edu>
+Date: Thu, 22 Oct 2026 22:50:28 +0000
+Subject: [PATCH 2/7] Phase 2: layer research stages into summary, result and
+ collapsed methods
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CryqtVWHxQqeBH2U2kwpqj
+---
+ index.html | 54 ++++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 36 insertions(+), 18 deletions(-)
+
+diff --git a/index.html b/index.html
+index 41ba15d..03ae81b 100644
+--- a/index.html
++++ b/index.html
+@@ -151,6 +151,12 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+ .card-link{margin-top:auto;font:500 .78rem/1.3 var(--mono);color:var(--sky)}
+ .card:hover .card-link{color:var(--accent)}
+ @media (max-width:820px){.cards{grid-template-columns:minmax(0,1fr)}}
++
++/* phase 2: layered stages */
++.summary{font-size:1.06rem;max-width:var(--col)}
++.takeaway{max-width:var(--col);font-size:.95rem;padding:10px 14px;border-left:3px solid var(--accent);background:var(--surface);border-radius:0 6px 6px 0}
++.takeaway .label{display:block;margin-bottom:2px;color:var(--accent)}
++details .points{margin-top:10px}
+ </style>
+ </head>
+ <body>
+@@ -212,7 +218,7 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+ <section id="research">
+   <p class="label">Research thread · 2025 – present</p>
+   <h2>Correcting aerosol bias in satellite CO₂ retrievals</h2>
+-  <p class="intro">MethaneSAT measures methane at high resolution, and its CO₂ product is currently used only as a proxy for the methane retrieval. My research asks whether we can remove the bias that aerosol scattering introduces into those CO₂ retrievals, so that MethaneSAT could also quantify regional CO₂ fluxes. Each stage below grew out of what the previous one could not solve.</p>
++  <p class="intro">MethaneSAT is a satellite built to measure methane. My research asks whether we can remove the error that aerosols (haze, dust, smoke) introduce into its CO₂ measurements, so it could also track regional CO₂ emissions. Each stage grew out of what the previous one could not solve.</p>
+ 
+   <ol class="thread">
+     <!-- 1 -->
+@@ -221,19 +227,24 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+       <div class="body">
+         <h3>Statistical correction with MethaneSAT and VIIRS</h3>
+         <div class="meta"><span><b>Role</b> Sole developer</span><span><b>Advisor</b> Prof. Steven C. Wofsy</span><span><b>Funding</b> Harvard PRISE fellowship</span></div>
+-        <p>MethaneSAT infers surface pressure from the oxygen absorption band at 1286 nm. Because O₂ is evenly mixed in the atmosphere, any gap between the retrieved pressure and the expected pressure (ΔP) should come from light-path errors such as aerosol scattering. I tested whether ΔP, combined with independent aerosol data from the VIIRS satellite, could be used in a regression that corrects the CO₂ retrieval.</p>
+-        <ul class="points">
+-          <li>Built automated R and Python pipelines to download, extract and align NetCDF data from two satellites with different resolutions, using the VIIRS 6 km Deep Blue aerosol product.</li>
+-          <li>Matched observations in space and time (±90 minutes) across 100+ scenes.</li>
+-          <li>Fit robust linear models of ΔP against aerosol optical depth, albedo and the Ångström exponent, using VIF checks for multicollinearity and AICc for model selection.</li>
+-        </ul>
++        <p class="summary">I tried to correct aerosol errors in MethaneSAT's CO₂ data with statistics alone, by combining it with aerosol measurements from a second satellite, VIIRS.</p>
++        <p class="takeaway"><span class="label">Takeaway</span>A regression on ΔP (the error in MethaneSAT's retrieved surface pressure), aerosol and albedo couldn't separate aerosol from albedo effects without knowing true CO₂, which pointed me toward physics-based modeling.</p>
+         <div class="figs">
+           <figure><div class="frame"><img src="msat-viirs-maps.png" alt="Four maps over Hefei, China: delta pressure and albedo from MethaneSAT, aerosol optical depth and Angstrom exponent from VIIRS" loading="lazy"></div>
+             <figcaption>The regression variables mapped over Hefei, China (20 March 2025).</figcaption></figure>
+           <figure><div class="frame"><img src="msat-xco2-vs-dp.png" alt="Density plot of XCO2 against delta pressure with a robust regression line showing a negative relationship" loading="lazy"></div>
+             <figcaption>Retrieved XCO₂ (with the O₂ proxy) against ΔP. The CO₂ value still depends on ΔP, so the proxy does not fully remove the bias.</figcaption></figure>
+         </div>
+-        <div class="lesson"><span class="label">Finding</span>ΔP was strongly influenced by albedo, aerosols and the Ångström exponent, which undermines the O₂ proxy correction. A model using MethaneSAT's own albedo fit better across scenes than one using VIIRS data alone, likely because the two satellites pass over about 90 minutes apart. After months on this approach I concluded that a regression could not separate aerosol effects from albedo effects without knowing the true CO₂ over each scene. That pointed me toward physics-based modeling.</div>
++        <details>
++          <summary>Methods</summary>
++          <p>MethaneSAT infers surface pressure from the oxygen absorption band at 1286 nm. Because O₂ is evenly mixed in the atmosphere, any gap between the retrieved pressure and the expected pressure (ΔP) should come from light-path errors such as aerosol scattering. I tested whether ΔP, combined with independent aerosol data from the VIIRS satellite, could be used in a regression that corrects the CO₂ retrieval.</p>
++          <ul class="points">
++            <li>Built automated R and Python pipelines to download, extract and align NetCDF data from two satellites with different resolutions, using the VIIRS 6 km Deep Blue aerosol product.</li>
++            <li>Matched observations in space and time (±90 minutes) across 100+ scenes.</li>
++            <li>Fit robust linear models of ΔP against aerosol optical depth, albedo (surface brightness) and the Ångström exponent (a proxy for aerosol particle size), using VIF (variance inflation factor) checks for multicollinearity and AICc (corrected Akaike information criterion) for model selection.</li>
++          </ul>
++          <p>Full finding: ΔP was strongly influenced by albedo, aerosols and the Ångström exponent, which undermines the O₂ proxy correction. A model using MethaneSAT's own albedo fit better across scenes than one using VIIRS data alone, likely because the two satellites pass over about 90 minutes apart. After months on this approach I concluded that a regression could not separate aerosol effects from albedo effects without knowing the true CO₂ over each scene.</p>
++        </details>
+         <div class="links">
+           <a class="btn" href="https://github.com/Leo-Di-Tommaso/Aerosol-Bias-Correction" target="_blank" rel="noopener">Code on GitHub</a>
+           <a class="btn" href="poster.pdf" target="_blank" rel="noopener">Research poster (PDF)</a>
+@@ -248,12 +259,8 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+       <div class="body">
+         <h3>A radiative transfer model and a fast ML emulator</h3>
+         <div class="meta"><span><b>Context</b> Graduate course project (EPS 200) feeding into my research</span><span><b>Guidance</b> Prof. Steven C. Wofsy, Eleanor Walker</span></div>
+-        <p>To understand the physics the regression missed, I took a basic two-stream radiative transfer toy model from my advisor and extended it into a tool for studying how aerosols, surface brightness and gas absorption interact. The goal was to see how errors in assumed aerosol or albedo turn into errors in retrieved surface pressure, and to make the model fast enough to run on millions of satellite pixels.</p>
+-        <ul class="points">
+-          <li>Extended the two-stream Eddington solver with Lambertian surface reflection and swept a 3D grid of aerosol optical depth (0.05–3.0), albedo (0.02–0.9) and absorption.</li>
+-          <li>Generated 50,000 training points with Latin Hypercube Sampling and trained a random forest and a 3-layer MLP to emulate the solver.</li>
+-          <li>Modeled how an absorption line forms in a scattering atmosphere (following McElroy, 1971) and built an inverse model of the resulting surface-pressure bias in the O₂ A-band.</li>
+-        </ul>
++        <p class="summary">I extended a basic physics model of how sunlight travels through the atmosphere to see how wrong aerosol or surface assumptions distort satellite measurements. Then I trained ML models to reproduce it fast enough for millions of pixels.</p>
++        <p class="takeaway"><span class="label">Result</span>Both emulators match the physics solver closely (R² above 0.99) and run far faster, and the model shows how aerosol and surface brightness together bias retrieved pressure.</p>
+         <div class="kv">
+           <div><p class="label">MLP emulator</p><p class="v">R² 0.9998</p><p class="s mono">MAE 0.00019</p></div>
+           <div><p class="label">Random forest</p><p class="v">R² 0.9930</p><p class="s mono">MAE 0.00111</p></div>
+@@ -267,6 +274,15 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+         </div>
+         <figure><div class="frame"><img src="rt-pressure-bias.png" alt="Three heat maps of surface pressure bias as a function of aerosol optical depth and surface albedo" loading="lazy"></div>
+           <figcaption>Surface-pressure bias across aerosol optical depth and albedo. Bright surfaces with heavy aerosol load lengthen the light path and overestimate pressure; dark surfaces underestimate it.</figcaption></figure>
++        <details>
++          <summary>Methods</summary>
++          <p>To understand the physics the regression missed, I took a basic two-stream radiative transfer toy model from my advisor and extended it into a tool for studying how aerosols, surface brightness and gas absorption interact.</p>
++          <ul class="points">
++            <li>Extended the two-stream Eddington solver with Lambertian surface reflection and swept a 3D grid of aerosol optical depth (0.05–3.0), albedo (0.02–0.9) and absorption.</li>
++            <li>Generated 50,000 training points with Latin Hypercube Sampling and trained a random forest and a 3-layer MLP to emulate the solver.</li>
++            <li>Modeled how an absorption line forms in a scattering atmosphere (following McElroy, 1971) and built an inverse model of the resulting surface-pressure bias in the O₂ A-band.</li>
++          </ul>
++        </details>
+         <details>
+           <summary>Technical details</summary>
+           <p>The solver computes upward and downward diffuse intensities as a function of optical depth, with Beer–Lambert attenuation of the direct beam, no downwelling at the top of the atmosphere and Lambertian reflection at the surface. Inputs are aerosol optical depth, single-scattering albedo, solar and viewing angles, and surface albedo.</p>
+@@ -285,14 +301,15 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+       <div class="body">
+         <h3>Using surface variation to correct light-path errors</h3>
+         <div class="meta"><span><b>Advisors</b> Prof. Christian Frankenberg, Prof. Steven C. Wofsy</span></div>
+-        <p>With a full radiative transfer model (vSmartMOM), I simulated satellite CO₂ retrievals under different aerosols, surfaces and viewing geometries, and developed a correction that works under noise levels similar to MethaneSAT's.</p>
++        <p class="summary">I simulated satellite CO₂ measurements with a full radiative transfer model (vSmartMOM) and built a correction that uses one fact: over a small area the air is roughly uniform, while the ground underneath varies sharply. That contrast lets the method estimate the aerosol effect and remove it.</p>
++        <p class="takeaway"><span class="label">Result</span>On 88 simulated test scenes the median CO₂ bias falls from 9.89 to 0.34 ppm, within the 0.25% accuracy target; the RMSE is still just above it.</p>
+         <div class="kv">
+           <div><p class="label">Median CO₂ bias</p><p class="v">9.89 → 0.34 ppm</p><p class="s">0.079%, within the 0.25% target</p></div>
+           <div><p class="label">RMSE</p><p class="v">1.25 ppm</p><p class="s">0.29%, just above the target</p></div>
+           <div><p class="label">Test set</p><p class="v">88 scenes</p><p class="s">simulated, MethaneSAT-like noise</p></div>
+         </div>
+-        <details open>
+-          <summary>Abstract</summary>
++        <details>
++          <summary>Full abstract</summary>
+           <blockquote>Accurate retrievals of greenhouse gas (GHG) emissions are essential to meaningfully informing policymakers on regional policies. However, the community has struggled to obtain retrievals of carbon dioxide (CO₂) with uncertainties below the real regional variations of gas concentration in the atmosphere at fine spatial scales. These variations are of only 1–3 ppm on a background of roughly 430 ppm, so the required accuracy is below 0.25%. The main source of uncertainty in CO₂ retrievals comes from aerosol scattering. Different aerosol types carry different scattering behaviors coherently with Mie scattering theory, which makes it difficult to correct their impact on greenhouse gas retrievals. To solve the problem, we explored the dependency of these biases on various aerosol parameters, surface reflectance and geometry by simulating satellite retrievals using the radiative transfer model vSmartMOM. We devised a pipeline that is able to estimate the impact of aerosols on the signal in simulated noise conditions similar to those of MethaneSAT, a high resolution GHG sensing satellite, by using the fact that atmospheric parameters can be considered roughly uniform over small areas, whereas the surface reflectance underneath is sharply varying. On 88 simulated test scenes, the best correction reduces the aerosol-induced CO₂ bias from a median of 9.89 ppm to 0.34 ppm (0.079%), within the 0.25% requirement, although its root mean squared error of 1.25 ppm (0.29%) remains just above it. These studies provide a basis for current and future high resolution GHG remote sensing missions to successfully quantify and correct aerosol-scattering-induced bias, thus retrieving more accurate estimates of GHG concentrations.</blockquote>
+         </details>
+         <div class="confidential"><p class="label">Unpublished work</p><p>The methods are not public yet. I'm happy to walk through the approach in an interview.</p></div>
+@@ -305,7 +322,8 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
+       <div class="when"><span class="n">4</span><p class="label date">Next</p></div>
+       <div class="body">
+         <h3>From simulation to real observations</h3>
+-        <p>I'm now extending the method to real MethaneSAT observations, with the goal of an operational bias correction for high-resolution regional CO₂ flux estimates.</p>
++        <p class="summary">I'm testing the stage 3 correction on real MethaneSAT observations instead of simulations.</p>
++        <p class="takeaway"><span class="label">Goal</span>An operational bias correction for high-resolution regional CO₂ flux estimates.</p>
+       </div>
+     </li>
+   </ol>
+-- 
+2.43.0
+
