@@ -120,7 +120,9 @@ blockquote{margin:0;max-width:var(--col);padding-left:18px;border-left:2px solid
 .flow .key{font-family:var(--body);font-size:.8rem;color:var(--muted)}
 
 /* about */
-.about{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;margin-top:28px}
+.about{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1.2fr) minmax(0,1fr);gap:40px;margin-top:28px;align-items:start}
+.portrait{margin:0;max-width:100%}
+.portrait img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
 .about p + p{margin-top:14px}
 .skills{display:grid;gap:16px;font-size:.93rem}
 .skills .label{display:block;margin-bottom:4px}
@@ -129,7 +131,9 @@ footer .addr{font-family:var(--mono);font-size:.95rem;user-select:all;color:var(
 .copy{font:500 .75rem var(--mono);padding:5px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--muted);cursor:pointer;margin-left:8px}
 .copy:hover{color:var(--accent);border-color:var(--accent)}
 
+@media (max-width:1000px){.about{grid-template-columns:minmax(0,200px) minmax(0,1fr)}.about .skills{grid-column:1 / -1}}
 @media (max-width:820px){
+  .portrait{max-width:260px}
   .hero,.project,.about{grid-template-columns:minmax(0,1fr)}
   .hero{padding-block:40px 28px;gap:28px}
   .stage{grid-template-columns:minmax(0,1fr);gap:10px}
@@ -401,9 +405,11 @@ code{font-family:var(--mono);font-size:.88em}
   <p class="label">About</p>
   <h2>Physics student from the Italian Alps</h2>
   <div class="about">
+    <figure class="portrait"><img src="about.jpg" alt="Leonardo Di Tommaso standing in an alpine valley with a glacier and rocky peaks behind him" width="900" height="1200" loading="lazy"></figure>
     <div>
       <p>I'm a physics student at Harvard (AB expected 2028), originally from Aosta, Italy. I got into atmospheric science through a high school internship at my regional environmental agency, and I've worked on how to measure greenhouse gases from space ever since.</p>
       <p>What I enjoy most is the full loop: getting messy real-world data into shape, building a model, finding out where it breaks, and figuring out why. Before college I also led my region's student representatives and served as a G7 youth education delegate.</p>
+      <p>Outside research, I love hiking, cooking, watercolor painting and reading.</p>
     </div>
     <div class="skills">
       <div><span class="label">Languages & tools</span>Python, Julia, R (terra, raster, ncdf4, tidyverse, ggplot2), Git, LaTeX, Maple</div>
